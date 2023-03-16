@@ -7,21 +7,21 @@ local ESP = {
     Enabled = true,
     Settings = {
         RemoveOnDeath = true,
-        MaxDistance = 300, -- Max Distance for esp to render (IN METERS).
+        MaxDistance = getgenv().distance, -- Max Distance for esp to render (IN METERS).
         MaxBoxSize = Vector3.new(15, 15, 0), -- Max size for ESP boxes.
         DestroyOnRemove = true, -- Whether the ESP objects should be deleted when the character is parented to nil, change this if you want.
-        TeamColors = false, -- Whether or not the ESP color is based on team colors.
-        TeamBased = false, -- Whether or not the ESP should render ESP on teammates. 
+        TeamColors = getgenv().teamcolor, -- Whether or not the ESP color is based on team colors.
+        TeamBased = getgenv().teambased, -- Whether or not the ESP should render ESP on teammates. 
         BoxTopOffset = Vector3.new(0, 1, 0), -- Offset for where the top of the box should be
         
         Boxes = {
-            Enabled = true,
+            Enabled = getgenv().boxes,
             Color = Color3.new(1, 0, 1),
             Thickness = 1,
         },
         Names = {
-            Distance = true,
-            Health = true, -- Adds health values to the nametag.
+            Distance = getgenv().distance,
+            Health = getgenv().health, -- Adds health values to the nametag.
             Enabled = true,
             Resize = true, -- Resizes the text based on the distance from the camera to the player so text doesn't get ridiculously large the further you are from the target.
             ResizeWeight = 0.05, -- How quickly names are resized based on the distance from the camera.
@@ -32,7 +32,7 @@ local ESP = {
             Outline = true,
         },
         Tracers = {
-            Enabled = true,
+            Enabled = getgenv().tracers,
             Thickness = 0,
             Color = Color3.new(1, 0, 1),
         }
