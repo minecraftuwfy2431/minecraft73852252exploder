@@ -4,7 +4,7 @@
 local Players = game:GetService("Players")
 
 local ESP = {
-    Enabled = true,
+    Enabled = getgenv().espon,
     Settings = {
         RemoveOnDeath = true,
         MaxDistance = getgenv().distance, -- Max Distance for esp to render (IN METERS).
