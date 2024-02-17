@@ -18,42 +18,7 @@ local Camera = workspace.CurrentCamera
 -- Variables
 local RequiredDistance, Typing, Running, ServiceConnections, Animation, OriginalSensitivity = 2000, false, false, {}
 
--- Environment
-getgenv().AirHub.Aimbot = {
-    Settings = {
-    Enabled = false,
-    TeamCheck = false,
-    AliveCheck = true,
-    WallCheck = false,
-    Sensitivity = 0, -- Animation length (in seconds) before fully locking onto target
-    ThirdPerson = false, -- Uses mousemoverel instead of CFrame to support locking in third person (could be choppy)
-    ThirdPersonSensitivity = 3,
-    TriggerKey = "MouseButton2",
-    Toggle = false,
-    LockPart = "Head", -- Body part to lock on
-    PredictionEnabled = true, -- Enable or disable prediction
-    PredictionAmount = 0.1 -- Amount of prediction (in seconds)
-},
-
-
-    FOVSettings = {
-        Enabled = true,
-        Visible = true,
-        Amount = 90,
-        Color = Color3fromRGB(255, 255, 255),
-        LockedColor = Color3fromRGB(255, 70, 70),
-        Transparency = 0.5,
-        Sides = 60,
-        Thickness = 1,
-        Filled = false
-    },
-
-    FOVCircle = Drawingnew("Circle")
-}
-
-local Environment = getgenv().AirHub.Aimbot
-
--- Core Functions
+-- Functions
 local function ConvertVector(Vector)
     return Vector2new(Vector.X, Vector.Y)
 end
@@ -123,8 +88,7 @@ local function GetClosestPlayer()
     end
 end
 
-
-
+-- Load Function
 local function Load()
     OriginalSensitivity = UserInputService.MouseDeltaSensitivity
 
@@ -169,7 +133,7 @@ local function Load()
     ServiceConnections.InputBeganConnection = UserInputService.InputBegan:Connect(function(Input)
         if not Typing then
             pcall(function()
-                if Input.UserInputType == Enum.UserInputType.Keyboard and Input.KeyCode == Enum.KeyCode[#Environment.Settings.TriggerKey == 1 and stringupper(Environment.Settings.TriggerKey) or Environment.Settings.TriggerKey] or Input.UserInputType == Enum.UserInputType[Environment.Settings.TriggerKey] then
+                if Input.UserInputType == Enum.UserInputType.Keyboard and Input.KeyCode == Enum.KeyCode[Environment.Settings.TriggerKey] then
                     if Environment.Settings.Toggle then
                         Running = not Running
 
@@ -188,14 +152,45 @@ local function Load()
         if not Typing then
             if not Environment.Settings.Toggle then
                 pcall(function()
-                    if Input.UserInputType == Enum.UserInputType.Keyboard and Input.KeyCode == Enum.KeyCode[#Environment.Settings.TriggerKey == 1 and stringupper(Environment.Settings.TriggerKey) or Environment.Settings.TriggerKey] or Input.UserInputType == Enum.UserInputType[Environment.Settings.TriggerKey] then
-                        Running = false; CancelLock()
+                    if Input.UserInputType == Enum.UserInputType.Keyboard and Input.KeyCode == Enum.KeyCode[Environment.Settings.TriggerKey] then
+                        Running = false
+                        CancelLock()
                     end
                 end)
             end
         end
     end)
 end
+
+-- Environment
+getgenv().AirHub.Aimbot = {
+    Settings = {
+        Enabled = false,
+        TeamCheck = false,
+        AliveCheck = true,
+        WallCheck = false,
+        Sensitivity = 0, -- Animation length (in seconds) before fully locking onto target
+        ThirdPerson = false, -- Uses mousemoverel instead of CFrame to support locking in third person (could be choppy)
+        ThirdPersonSensitivity = 3,
+        TriggerKey = Enum.KeyCode.Button2, -- Change to the appropriate trigger key
+        Toggle = false,
+        LockPart = "Head", -- Body part to lock on
+        PredictionEnabled = true, -- Enable or disable prediction
+        PredictionAmount = 0.1 -- Amount of prediction (in seconds)
+    },
+    FOVSettings = {
+        Enabled = true,
+        Visible = true,
+        Amount = 90,
+        Color = Color3fromRGB(255, 255, 255),
+        LockedColor = Color3fromRGB(255, 70, 70),
+        Transparency = 0.5,
+        Sides = 60,
+        Thickness = 1,
+        Filled = false
+    },
+    FOVCircle = Drawingnew("Circle")
+}
 
 -- Typing Check
 ServiceConnections.TypingStartedConnection = UserInputService.TextBoxFocused:Connect(function()
@@ -207,9 +202,9 @@ ServiceConnections.TypingEndedConnection = UserInputService.TextBoxFocusReleased
 end)
 
 -- Functions
-Environment.Functions = {}
+getgenv().AirHub.Aimbot.Functions = {}
 
-function Environment.Functions:Exit()
+function getgenv().AirHub.Aimbot.Functions:Exit()
     for _, v in next, ServiceConnections do
         v:Disconnect()
     end
@@ -222,7 +217,7 @@ function Environment.Functions:Exit()
     Load = nil; ConvertVector = nil; CancelLock = nil; GetClosestPlayer = nil;
 end
 
-function Environment.Functions:Restart()
+function getgenv().AirHub.Aimbot.Functions:Restart()
     for _, v in next, ServiceConnections do
         v:Disconnect()
     end
@@ -230,8 +225,8 @@ function Environment.Functions:Restart()
     Load()
 end
 
-function Environment.Functions:ResetSettings()
-    Environment.Settings = {
+function getgenv().AirHub.Aimbot.Functions:ResetSettings()
+    getgenv().AirHub.Aimbot.Settings = {
         Enabled = false,
         TeamCheck = false,
         AliveCheck = true,
@@ -239,12 +234,12 @@ function Environment.Functions:ResetSettings()
         Sensitivity = 0, -- Animation length (in seconds) before fully locking onto target
         ThirdPerson = false, -- Uses mousemoverel instead of CFrame to support locking in third person (could be choppy)
         ThirdPersonSensitivity = 3,
-        TriggerKey = "MouseButton2",
+        TriggerKey = Enum.KeyCode.Button2, -- Change to the appropriate trigger key
         Toggle = false,
         LockPart = "Head" -- Body part to lock on
     }
 
-    Environment.FOVSettings = {
+    getgenv().AirHub.Aimbot.FOVSettings = {
         Enabled = true,
         Visible = true,
         Amount = 90,
@@ -257,7 +252,7 @@ function Environment.Functions:ResetSettings()
     }
 end
 
-setmetatable(Environment.Functions, {
+setmetatable(getgenv().AirHub.Aimbot.Functions, {
     __newindex = warn
 })
 
