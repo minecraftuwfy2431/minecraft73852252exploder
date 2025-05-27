@@ -1,9 +1,9 @@
 {
-  "name": "Aloevera",
+  "name": "ProggyClean",
   "faces": [
     {
       "style": "normal",
-      "assetId": "rbxasset://gca/Aloevera.ttf",
+      "assetId": "rbxasset://gca/ProggyClean.ttf",
       "name": "Regular",
       "weight": 200
     }
