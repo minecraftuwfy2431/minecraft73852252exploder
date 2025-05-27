@@ -1,1 +1,11 @@
-{"name":"ProggyClean","faces":[{"style":"normal","assetId":"rbxasset://gca/ProggyClean.ttf","name":"Regular","weight":200}]}
+{
+  "name": "Aloevera",
+  "faces": [
+    {
+      "style": "normal",
+      "assetId": "rbxasset://gca/Aloevera.ttf",
+      "name": "Regular",
+      "weight": 200
+    }
+  ]
+}
